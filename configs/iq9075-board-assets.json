@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "description": "Versioned recovery inventory. Models download directly to the IQ-9075 only after a writable non-RAM filesystem is identified; assets are session-local and no weights are stored in Git.",
+  "target_root_policy": "selected non-RAM mount/hexagonflow-device-<bundle-id>/assets; never assume /tmp is persistent",
+  "assets": [
+    {
+      "id": "geniex-sdk-linux-arm64-v0.11.0",
+      "role": "geniex_runtime_archive",
+      "filename": "geniex-sdk-linux-arm64-v0.11.0.zip",
+      "url": "https://qaihub-public-assets.s3.us-west-2.amazonaws.com/qai-hub-geniex/geniex-sdk-linux-arm64-v0.11.0.zip",
+      "size_bytes": 105547544,
+      "unpacked_size_bytes": 274962604,
+      "sha256": "dd20ba09d1e00d3e584cff25042f040e542448f0e5e5f50023614af5eaa4e010",
+      "format": "ZIP",
+      "license": "Official GenieX v0.11.0 SDK release; review embedded runtime component terms before redistribution",
+      "source_revision": "ae375185109277a2a019b37c037f65bd6e47578c",
+      "device_evidence": "Official pinned Linux ARM64 SDK archive; extract the lib tree only when target runtime is missing or explicitly incompatible."
+    },
+    {
+      "id": "qwen3-vl-4b-q4_0",
+      "role": "vlm_gguf_fallback",
+      "filename": "Qwen3-VL-4B-Instruct-Q4_0.gguf",
+      "url": "https://huggingface.co/unsloth/Qwen3-VL-4B-Instruct-GGUF/resolve/00c00da0690c4b14b5539b02c4ea5d7c9102b35e/Qwen3-VL-4B-Instruct-Q4_0.gguf",
+      "size_bytes": 2375774496,
+      "format": "GGUF",
+      "sha256": "09965766e92778b591ab9da5209463b843d000449b38d909055b399d8dbd3d76",
+      "license": "Apache-2.0",
+      "source_revision": "00c00da0690c4b14b5539b02c4ea5d7c9102b35e",
+      "device_evidence": "Previously ran on IQ-9075 HTP0 through GenieX llama_cpp; this is the known-good recovery route."
+    },
+    {
+      "id": "qwen3-vl-4b-mmproj-f16",
+      "role": "vlm_projector",
+      "filename": "mmproj-F16.gguf",
+      "url": "https://huggingface.co/unsloth/Qwen3-VL-4B-Instruct-GGUF/resolve/00c00da0690c4b14b5539b02c4ea5d7c9102b35e/mmproj-F16.gguf",
+      "size_bytes": 836180640,
+      "format": "GGUF",
+      "sha256": "1b9f4e92f0fbda14d7d7b58baed86039b8a980fe503d9d6a9393f25c0028f1fc",
+      "license": "Apache-2.0",
+      "source_revision": "00c00da0690c4b14b5539b02c4ea5d7c9102b35e",
+      "device_evidence": "Previously used with the known-good HTP0 VLM route."
+    },
+    {
+      "id": "qwen3-vl-4b-qairt-w4a16-iq9075-v066",
+      "role": "vlm_qairt_bundle",
+      "filename": "qwen3-vl-4b-instruct-geniex-qairt-w4a16-iq9075-v0.66.0.zip",
+      "url": "https://qaihub-public-assets.s3.us-west-2.amazonaws.com/qai-hub-models/models/qwen3_vl_4b_instruct/releases/v0.66.0/qwen3_vl_4b_instruct-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+      "size_bytes": null,
+      "sha256": null,
+      "format": "ZIP",
+      "sha256_policy": "record_first_fetch_over_https",
+      "model_asset_release": "Qualcomm AI Hub v0.66.0; IQ-9075; GENIEX_QAIRT; w4a16; QAIRT 2.50 family",
+      "license": "Qualcomm AI Hub model asset terms; review before use or redistribution",
+      "execution_note": "Do not select until target GenieX QAIRT plugin/runtime compatibility is read from the current device. This ZIP is not a GGUF model."
+    },
+    {
+      "id": "qwen3-4b-instruct-2507-q4_0",
+      "role": "llm_gguf_fallback",
+      "filename": "Qwen3-4B-Instruct-2507-Q4_0.gguf",
+      "url": "https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/25bdde3692a3bcc2a1db6db58443c2729d6a4f2d/Qwen3-4B-Instruct-2507-Q4_0.gguf",
+      "size_bytes": null,
+      "sha256": null,
+      "format": "GGUF",
+      "sha256_policy": "record_first_fetch_over_https",
+      "source_revision": "25bdde3692a3bcc2a1db6db58443c2729d6a4f2d",
+      "source_manifest": "Qualcomm Qwen3-4B-Instruct-2507 release_assets v0.66.0 universal geniex_llamacpp q4_0 entry",
+      "license": "Model card identifies Apache-2.0; verify quantized package terms on first acquisition",
+      "execution_note": "GGUF/llama.cpp fallback. It is an independent text model, separate from the VLM."
+    },
+    {
+      "id": "qwen3-4b-instruct-2507-qairt-w4a16-iq9075-v066",
+      "role": "llm_qairt_bundle",
+      "filename": "qwen3-4b-instruct-2507-geniex-qairt-w4a16-iq9075-v0.66.0.zip",
+      "url": "https://qaihub-public-assets.s3.us-west-2.amazonaws.com/qai-hub-models/models/qwen3_4b_instruct_2507/releases/v0.66.0/qwen3_4b_instruct_2507-geniex_qairt-w4a16-qualcomm_qcs9075.zip",
+      "size_bytes": null,
+      "sha256": null,
+      "format": "ZIP",
+      "sha256_policy": "record_first_fetch_over_https",
+      "model_asset_release": "Qualcomm AI Hub v0.66.0; IQ-9075; GENIEX_QAIRT; w4a16; QAIRT 2.50.0.260828221209",
+      "license": "Qualcomm AI Hub model asset terms; review before use or redistribution",
+      "execution_note": "Use only with a matching installed GenieX QAIRT plugin. This ZIP is not a GGUF model."
+    },
+    {
+      "id": "minilm-l6-v2-q8-repaired-v3",
+      "role": "embedding",
+      "filename": "all-MiniLM-L6-v2-q8_0-cstr-repaired-v3.gguf",
+      "local_cache": "models/cache/all-MiniLM-L6-v2-q8_0-cstr-repaired-v3.gguf",
+      "size_bytes": 24701568,
+      "sha256": "4ef97c88f2c23733eac808305cd51a7c077a49462f7bf0f8c398caed694c143c",
+      "license": "Apache-2.0",
+      "source_revision": "local-derived-from-cstr/all-MiniLM-L6-v2-GGUF@f0673ed53d37dfda08c0407b257440450d816980",
+      "device_evidence": "A target ARM64 llama-embedding run previously returned 384-dimensional vectors; no IQ-9075 quality or speed claim is inferred."
+    },
+    {
+      "id": "siglip2-qnn-dlc-w8a16-v061-experimental",
+      "role": "visual_embedding_qnn_candidate",
+      "filename": "siglip2-qnn_dlc-w8a16-v0.61.0.zip",
+      "url": "https://qaihub-public-assets.s3.us-west-2.amazonaws.com/pre_release_assets/gh_actions/32556030899/siglip2-qnn_dlc-w8a16.zip",
+      "size_bytes": null,
+      "sha256": null,
+      "sha256_policy": "record_first_fetch_over_https",
+      "format": "ZIP",
+      "license": "SigLIP2 model Apache-2.0; AI Hub Models source/sample code BSD-3-Clause; verify bundled asset terms before use",
+      "source_revision": "qualcomm/ai-hub-models@v0.61.0",
+      "required_qairt_version": "2.45.0.260326154327",
+      "device_support_status": "experimental_unverified; Qualcomm model page says not supported on IoT while its device list includes IQ-9075",
+      "execution_note": "Optional only. Do not fetch or initialize until the fresh device reports the matching QAIRT version and the installed QIM plugins are confirmed."
+    },
+    {
+      "id": "siglip2-tokenizer-google-pinned",
+      "role": "visual_embedding_tokenizer",
+      "filename": "siglip2-tokenizer.json",
+      "url": "https://huggingface.co/google/siglip2-base-patch16-224/resolve/75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2/tokenizer.json",
+      "size_bytes": null,
+      "sha256": null,
+      "sha256_policy": "record_first_fetch_over_https",
+      "license": "Apache-2.0 model repository; review repository terms before use",
+      "source_revision": "google/siglip2-base-patch16-224@75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2",
+      "device_evidence": "Tokenizer only; loaded on target with the pre-existing tokenizers Python package if available."
+    },
+    {
+      "id": "openai-clip-vit-b-32-vision-onnx",
+      "role": "visual_embedding_image_encoder",
+      "filename": "clip-vit-b-32-vision.onnx",
+      "url": "https://huggingface.co/inference4j/clip-vit-base-patch32/resolve/443ef91920655880085b0e61265e8dc509de4994/vision_model.onnx",
+      "size_bytes": 351484834,
+      "sha256": "e8518f8b64e5abdd0bdb44e336a4e1367f48803c5a60462baea32dc0d18a2fd7",
+      "format": "ONNX",
+      "license": "MIT; model card identifies the original OpenAI CLIP model as MIT. Keep weights outside Git.",
+      "source_revision": "inference4j/clip-vit-base-patch32@443ef91920655880085b0e61265e8dc509de4994",
+      "execution_note": "Paired 512D image encoder; 224x224 CLIP normalization. Board execution was observed using the independent ONNX Runtime CPU provider; GPU is unverified."
+    },
+    {
+      "id": "openai-clip-vit-b-32-text-onnx",
+      "role": "visual_embedding_text_encoder",
+      "filename": "clip-vit-b-32-text.onnx",
+      "url": "https://huggingface.co/inference4j/clip-vit-base-patch32/resolve/443ef91920655880085b0e61265e8dc509de4994/text_model.onnx",
+      "size_bytes": 253812304,
+      "sha256": "ec9cfa29fc10a5c6dd5e7efd3b4aab7351a1961a134721622e5eaa57dd44981f",
+      "format": "ONNX",
+      "license": "MIT; model card identifies the original OpenAI CLIP model as MIT. Keep weights outside Git.",
+      "source_revision": "inference4j/clip-vit-base-patch32@443ef91920655880085b0e61265e8dc509de4994",
+      "execution_note": "Paired 512D text encoder; preserve original INT64 input graph for independent ONNX Runtime CPU. The earlier INT32 declaration rewrite failed type checking."
+    },
+    {
+      "id": "openai-clip-vit-b-32-vocab",
+      "role": "visual_embedding_tokenizer_vocab",
+      "filename": "clip-vit-b-32-vocab.json",
+      "url": "https://huggingface.co/inference4j/clip-vit-base-patch32/resolve/443ef91920655880085b0e61265e8dc509de4994/vocab.json",
+      "size_bytes": 862328,
+      "sha256_policy": "record_first_fetch_over_https",
+      "format": "JSON",
+      "license": "MIT model repository; tokenizer is pinned to the same immutable revision.",
+      "source_revision": "inference4j/clip-vit-base-patch32@443ef91920655880085b0e61265e8dc509de4994"
+    },
+    {
+      "id": "openai-clip-vit-b-32-merges",
+      "role": "visual_embedding_tokenizer_merges",
+      "filename": "clip-vit-b-32-merges.txt",
+      "url": "https://huggingface.co/inference4j/clip-vit-base-patch32/resolve/443ef91920655880085b0e61265e8dc509de4994/merges.txt",
+      "size_bytes": 524657,
+      "sha256_policy": "record_first_fetch_over_https",
+      "format": "TEXT",
+      "license": "MIT model repository; tokenizer is pinned to the same immutable revision.",
+      "source_revision": "inference4j/clip-vit-base-patch32@443ef91920655880085b0e61265e8dc509de4994"
+    }
+  ],
+  "runtime_requirements": [
+    {
+      "id": "geniex-v0.11.0-qairt-plugin",
+      "source": "Installed target runtime first; if required components are missing, fetch the pinned official v0.11.0 Linux ARM64 SDK archive directly to the device; use the SHA-pinned D-drive llama-only archive only when target CDN access fails",
+      "status": "QCS9075 platform listed upstream; current session runtime version and installed plugin remain unverified",
+      "policy": "Do not upgrade or copy the proprietary runtime into Git. QAIRT and model package versions are separate compatibility checks."
+    },
+    {
+      "id": "llama-cpp-arm64-runtime",
+      "source": "Existing D-drive ARM64 build cache; target binary upload only after ABI probe",
+      "status": "llama-embedding exists; llama-server is a separate target and must pass the minimal ARM64 build and target ABI smoke",
+      "policy": "CPU fallback only in the existing local build; do not claim HTP support when GGML_HEXAGON is disabled."
+    }
+  ]
+}

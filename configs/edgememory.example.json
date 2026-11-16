@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "storage": {
+    "database": ".local/edgememory/index.sqlite3",
+    "frame_evidence": ".local/edgememory/media",
+    "runs": "runs/edgememory"
+  },
+  "sampling": {
+    "min_interval_s": 1.5,
+    "max_interval_s": 12.0,
+    "scene_change_threshold": 0.16,
+    "max_samples": 500,
+    "max_frame_side": 768,
+    "jpeg_quality": 88
+  },
+  "captioning": {
+    "backend": "openai-compatible-vlm",
+    "base_url": "http://127.0.0.1:18181/v1",
+    "model": "SET_TO_THE_MODEL_ID_EXPOSED_BY_THE_ENGINE",
+    "api_key_env": null,
+    "timeout_s": 90,
+    "max_tokens": 96,
+    "simulation_backend_requires_explicit_selection": true
+  },
+  "embeddings": {
+    "backend": "llama.cpp",
+    "model": "all-MiniLM-L6-v2-q8_0",
+    "executable": "PATH_TO_LLAMA_EMBEDDING",
+    "model_path": "PATH_TO_IGNORED_GGUF_CACHE",
+    "timeout_s": 60,
+    "simulation_vectors_are_not_evaluation_data": true
+  },
+  "web": {
+    "host": "127.0.0.1",
+    "port": 8765
+  }
+}

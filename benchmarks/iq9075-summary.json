@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "target": "Qualcomm IQ-9075",
+  "source_runs_dates": [
+    "2026-11-15",
+    "2026-11-16"
+  ],
+  "corrected_video_index": {
+    "source": "Tears of Steel 720p",
+    "duration_s": 734.167,
+    "wall_s": 967.759,
+    "indexed_events": 196,
+    "completed_captions": 195,
+    "visual_vectors": 196,
+    "indexing_failures": 0,
+    "sqlite_integrity": "ok"
+  },
+  "llm_single_request": {
+    "model": "Qwen3-4B-Instruct-2507 Q4_0",
+    "selector": "HTP4",
+    "end_to_end_us": 3498327,
+    "ttft_us": 722738,
+    "prefill_tokens_per_second": 369.755393651,
+    "decode_tokens_per_second": 15.9576744446,
+    "context_tokens": 512,
+    "output_tokens": 44
+  },
+  "manual_vlm_retry": {
+    "selector": "HTP0",
+    "worker_elapsed_us": 5119270,
+    "output_tokens": 39
+  },
+  "scope": "Separate device observations; no new benchmark execution; physical HTP independence and semantic accuracy not established."
+}

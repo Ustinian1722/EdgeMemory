@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>EdgeMemory · HexagonFlow</title>
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#top" aria-label="EdgeMemory home">
+        <span class="brand-mark">E</span>
+        <span><strong>EdgeMemory</strong><small>by HexagonFlow</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Workspace">
+        <a class="nav-link active" href="#workbench"><span class="nav-icon">▦</span>视频工作台</a>
+        <a class="nav-link" href="#memory"><span class="nav-icon">⌕</span>长期记忆</a>
+        <a class="nav-link" href="#runtime"><span class="nav-icon">◫</span>运行时控制台</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="connection-card">
+          <span class="status-dot" id="connectionDot"></span>
+          <div><strong id="connectionLabel">正在连接</strong><small id="connectionDetail">读取服务状态</small></div>
+        </div>
+        <div class="side-foot">本地证据优先 · 回答必须带来源</div>
+      </div>
+    </aside>
+
+    <main class="main" id="top">
+      <header class="topbar">
+        <div><div class="eyebrow">EDGE VIDEO INTELLIGENCE</div><h1>多路视频智能记忆</h1></div>
+        <div class="topbar-right"><span class="live-pill"><i></i>运行状态实时更新</span><button class="icon-button" id="refreshButton" aria-label="刷新">↻</button></div>
+      </header>
+
+      <section class="metric-grid" aria-label="真实索引统计">
+        <article class="metric-card"><span>视频源</span><strong id="metricMedia">—</strong><small>已登记媒体</small></article>
+        <article class="metric-card"><span>事件记忆</span><strong id="metricEvents">—</strong><small id="metricEventDetail">完成索引的片段</small></article>
+        <article class="metric-card"><span>处理中</span><strong id="metricActive">—</strong><small>排队与运行任务</small></article>
+        <article class="metric-card"><span>索引失败</span><strong id="metricFailed">—</strong><small>保留失败记录</small></article>
+      </section>
+
+      <section class="workbench-grid" id="workbench">
+        <div class="column">
+          <article class="panel upload-panel">
+            <div class="panel-heading"><div><div class="eyebrow">INPUTS</div><h2>添加视频源</h2></div><span class="count-chip" id="uploadCount">支持多选</span></div>
+            <label class="dropzone" id="dropzone" for="videoFiles">
+              <span class="upload-icon">↑</span><strong>拖放视频到此处，或点击选择</strong>
+              <small>视频将保存在本机 D 盘，并进入后台索引队列</small>
+              <input id="videoFiles" type="file" accept="video/mp4,video/quicktime,video/x-matroska,video/webm,video/avi,.mp4,.mov,.mkv,.webm,.avi" multiple>
+            </label>
+            <div class="upload-actions"><span class="subtle" id="uploadMessage">支持 MP4、MOV、MKV、WebM、AVI</span><button class="button primary" id="uploadButton" disabled>加入处理队列</button></div>
+            <div id="uploadProgress" class="upload-progress hidden"><div class="progress-track"><i id="uploadProgressBar"></i></div><span id="uploadProgressLabel"></span></div>
+          </article>
+
+          <article class="panel queue-panel">
+            <div class="panel-heading"><div><div class="eyebrow">BACKGROUND PIPELINE</div><h2>处理队列</h2></div><span class="subtle" id="queueCapacity">—</span></div>
+            <div id="jobList" class="job-list"><div class="empty-state">当前没有处理任务</div></div>
+          </article>
+
+          <article class="panel sources-panel">
+            <div class="panel-heading"><div><div class="eyebrow">VIDEO SOURCES</div><h2>已接入的视频</h2></div><button class="text-button" id="clearSourceFilter">查看全部</button></div>
+            <div id="mediaList" class="media-list"><div class="empty-state">上传视频后会显示来源和索引状态</div></div>
+          </article>
+        </div>
+
+        <div class="column">
+          <article class="panel timeline-panel">
+            <div class="panel-heading"><div><div class="eyebrow">EVENT MEMORY</div><h2>事件时间轴</h2></div><select id="sourceSelect" aria-label="选择视频源"><option value="">选择视频源</option></select></div>
+            <div class="timeline-meta"><span id="timelineLabel">选择一个视频查看事件</span><span id="timelineCount"></span></div>
+            <div class="timeline-rail" id="timelineRail"><div class="timeline-empty">视频处理完成后，时间轴会展示采样事件</div></div>
+            <div class="event-list" id="timelineEvents"><div class="empty-state">暂无事件</div></div>
+          </article>
+
+          <article class="panel player-panel">
+            <div class="panel-heading"><div><div class="eyebrow">SOURCE PLAYBACK</div><h2>证据回放</h2></div><span class="subtle" id="playbackLabel">选择时间轴事件</span></div>
+            <video id="sourcePlayer" controls preload="metadata" playsinline></video>
+            <div class="player-caption" id="playerCaption">播放原始视频，并定位到事件发生的相对时间。</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="memory-grid" id="memory">
+        <article class="panel search-panel">
+          <div class="panel-heading"><div><div class="eyebrow">CROSS-VIDEO RETRIEVAL</div><h2>跨视频搜索</h2></div><span class="subtle">关键词 + 可选向量召回</span></div>
+          <form id="searchForm" class="search-form"><input id="searchQuery" type="search" maxlength="1024" placeholder="例如：有人把红色箱子放到桌上" required><select id="searchSource"><option value="">所有视频</option></select><button class="button secondary">搜索事件</button><div class="time-range"><label>起始秒<input id="searchStart" type="number" min="0" step="0.1" placeholder="不限"></label><label>结束秒<input id="searchEnd" type="number" min="0" step="0.1" placeholder="不限"></label><small>按视频时间范围过滤</small></div></form>
+          <form id="imageSearchForm" class="search-form"><label>以图搜视频 <input id="imageSearchFile" type="file" accept="image/jpeg,image/png,image/webp" required></label><button class="button secondary">搜索相似画面</button></form>
+          <div id="searchResults" class="search-results"><div class="empty-state">搜索结果会附带时间戳、关键帧和原视频定位。</div></div>
+        </article>
+
+        <article class="panel answer-panel">
+          <div class="panel-heading"><div><div class="eyebrow">EVIDENCE-GROUNDED QA</div><h2>证据问答与摘要</h2></div><span class="grounded-chip">引用事件证据</span></div>
+          <form id="answerForm" class="answer-form"><textarea id="answerQuestion" maxlength="1024" rows="3" placeholder="基于已索引视频，我可以回答什么？"></textarea><div class="time-range"><label>起始秒<input id="answerStart" type="number" min="0" step="0.1" placeholder="不限"></label><label>结束秒<input id="answerEnd" type="number" min="0" step="0.1" placeholder="不限"></label><small>视觉相似帧可按需交给 VLM 复审</small></div><div class="answer-actions"><select id="answerSource"><option value="">跨视频记忆</option></select><button class="button primary">生成证据答案</button></div></form>
+          <button class="text-button summary-button" id="summaryButton" disabled>按时间均匀抽样总结所选视频</button>
+          <div id="answerResult" class="answer-result"><div class="empty-state">回答仅在配置真实语言模型后生成；没有证据时会明确说明。</div></div>
+        </article>
+      </section>
+
+      <section class="panel runtime-panel" id="runtime">
+        <div class="panel-heading"><div><div class="eyebrow">HEXAGONFLOW</div><h2>运行时与调度观测</h2></div><span class="subtle" id="runtimeUpdated">等待运行数据</span></div>
+        <div class="scheduler-controls"><label for="schedulerPolicy">前台/后台推理策略</label><select id="schedulerPolicy" class="scheduler-select"><option value="fifo">FIFO · 基线</option><option value="priority">前台优先级</option><option value="predicted_latency">实测时延预测</option></select><button id="schedulerApply" class="text-button" type="button">应用策略</button><span id="schedulerPolicyStatus" class="subtle"></span></div>
+        <div class="runtime-grid">
+          <div class="runtime-block"><h3>工作进程</h3><div id="workerState" class="runtime-value">—</div><small id="workerDetail">由服务端任务队列返回</small></div>
+          <div class="runtime-block"><h3>模型与后端</h3><div id="modelState" class="runtime-value">—</div><small id="modelDetail">只展示已配置或运行时报告信息</small></div>
+          <div class="runtime-block"><h3>最近推理指标</h3><div id="metricState" class="runtime-value">—</div><small id="metricDetail">来源于完成事件的实际计时</small></div>
+          <div class="runtime-block"><h3>设备拓扑</h3><div id="topologyState" class="runtime-value">尚未报告</div><small id="topologyDetail">未发现的物理映射不会用示意数据替代</small></div>
+          <div class="runtime-block"><h3>视觉语义记忆</h3><div id="visualMemoryState" class="runtime-value">未配置</div><small id="visualMemoryDetail">图像与文本向量保存在隔离空间</small></div>
+          <div class="runtime-block"><h3>SoC 硬件遥测</h3><div id="hardwareState" class="runtime-value">等待采样</div><small id="hardwareDetail">只显示可读取的系统计数器</small></div>
+        </div>
+        <div class="runtime-table-wrap"><table class="runtime-table"><thead><tr><th>任务</th><th>阶段</th><th>后端</th><th>模型</th><th>状态</th><th>调度等待</th><th>TTFT / Prefill</th><th>Decode</th></tr></thead><tbody id="runtimeRows"><tr><td colspan="8" class="empty-state">暂无实际推理记录</td></tr></tbody></table></div>
+      </section>
+      <footer>EdgeMemory · 视频事实、模型推断与未知信息分开呈现。</footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/assets/app.js" defer></script>
+</body>
+</html>

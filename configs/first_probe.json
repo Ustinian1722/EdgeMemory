@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "purpose": "P1 read-only QDC device acceptance probe",
+  "remote_session_minutes_max": 30,
+  "remote_commands_are_read_only": true,
+  "run_id_source": "generated locally before session; no secrets",
+  "expected_transport": "select from the actual QDC Connect dialog",
+  "probe_script": "scripts/remote/device_probe.sh",
+  "minimum_checks": [
+    "manual Connect dialog interpretation and read-only remote command execution",
+    "verified upload and download transfer with SHA256 and measured throughput",
+    "kernel and machine architecture",
+    "OS release and libc version",
+    "CPU, memory, and writable storage",
+    "GPU and accelerator device nodes",
+    "FastRPC and QNN/QAIRT libraries",
+    "read-only inventory of known Voice AI SDK paths, VAD library, and existing ASR model files",
+    "runtime and shell tools, including any existing C++ compiler",
+    "five-second --help smoke for preinstalled QNN/GenieX/llama.cpp CLI tools, when timeout is present",
+    "execute the bundled static ARM64 ABI smoke on aarch64; compile its source only when a compiler is already present",
+    "non-root permissions and QDC log backup availability"
+  ],
+  "schedule_minutes": [
+    {"phase": "connection and read-only identity probe", "minute_range": "0-4"},
+    {"phase": "small bundle upload and return-file transfer check", "minute_range": "4-9"},
+    {"phase": "full system and runtime inventory", "minute_range": "9-16"},
+    {"phase": "bundled static ARM64 smoke (native compile when available)", "minute_range": "16-21"},
+    {"phase": "compatibility decisions and immediate result collection", "minute_range": "21-26"},
+    {"phase": "hash check and close-session checklist", "minute_range": "26-30"}
+  ],
+  "stop_conditions": [
+    "stop at 4 minutes if transport or target identity remains unresolved",
+    "stop immediately if any action requests root, flashes, reboots, or modifies system state",
+    "stop optional experiments at minute 21 and reserve at least 5 minutes for collection",
+    "skip the ARM64 smoke only if the target is not aarch64 or the verified prebuilt is missing; do not install a compiler",
+    "do not install SDKs, download models, or build inference packages on the device in the first session"
+  ],
+  "model_assets": [],
+  "hardware_measurements": false
+}
